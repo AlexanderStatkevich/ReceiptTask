@@ -15,14 +15,13 @@ import java.util.List;
 
 public class OrderService {
 
-
     ProductService productService = ProductServiceSingleton.getInstance();
 
     DiscountCardService discountCardService = DiscountCardServiceSingleton.getInstance();
 
     public ReceiptDto processingOrder(OrderDto orderDTO) {
-        List<PositionDto> positionDtoList = orderDTO.getPositionDtoList();
-        String cardNumber = orderDTO.getCardNumber();
+        List<PositionDto> positionDtoList = orderDTO.positionDtoList();
+        String cardNumber = orderDTO.cardNumber();
         return receiptMakeOf(positionDtoList, cardNumber);
     }
 
@@ -31,8 +30,8 @@ public class OrderService {
         List<BigDecimal> totalSumList = new ArrayList<>();
 
         for (PositionDto positionDto : positionDtoList) {
-            int id = positionDto.getId();
-            int quantity = positionDto.getQuantity();
+            Long id = positionDto.id();
+            int quantity = positionDto.quantity();
 
             Product product = productService.getProduct(id);
             BigDecimal price = product.getPrice();
@@ -45,7 +44,7 @@ public class OrderService {
                 totalSumList.add(price.multiply(BigDecimal.valueOf(quantity)));
             }
 
-            ReceiptRow receiptRow = new ReceiptRow(quantity, product.getName(), price);
+            ReceiptRow receiptRow = new ReceiptRow(quantity, product.getName(), price,new BigDecimal(1));
             receiptRowList.add(receiptRow);
         }
 

@@ -13,19 +13,29 @@ public class MemoryProductDao implements ProductDao {
     private final List<Product> productList = new ArrayList<>();
 
     {
-        productList.add(new Product(1,"Milk", new BigDecimal(2)));
-        productList.add(new Product(2,"Bread", new BigDecimal(3)));
-        productList.add(new Product(3,"Meat", new BigDecimal(15)));
-        productList.add(new Product(4,"Cheese", new BigDecimal(5)));
-        productList.add(new Product(5,"Potato", new BigDecimal(4)));
+        productList.add(Product.builder().setId(1L).setName("Milk").setPrice(new BigDecimal(2)).setSaleAmount(0.1).setIsOnSale(true).build());
+        productList.add(Product.builder().setId(2L).setName("Bread").setPrice(new BigDecimal(3)).build());
+        productList.add(Product.builder().setId(3L).setName("Meat").setPrice(new BigDecimal(15)).build());
+        productList.add(Product.builder().setId(4L).setName("Cheese").setPrice(new BigDecimal(5)).build());
+        productList.add(Product.builder().setId(5L).setName("Potato").setPrice(new BigDecimal(4)).setSaleAmount(0.1).setIsOnSale(true).build());
     }
 
 
     @Override
-    public Product get(int id) {
+    public Product get(Long id) {
         return productList.stream()
-                .filter(x->x.getId() == id)
+                .filter(product -> product.getId().equals(id))
                 .findAny()
-                .orElseThrow(()-> new ProductNotExistException("Incorrect id input"));
+                .orElseThrow(() -> new ProductNotExistException("Incorrect id input"));
+    }
+
+    @Override
+    public boolean exist(Long id) {
+        for (Product product : productList) {
+            if (product.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

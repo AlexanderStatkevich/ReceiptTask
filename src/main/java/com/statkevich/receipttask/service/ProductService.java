@@ -11,8 +11,7 @@ public class ProductService {
         this.productDao = productDao;
     }
 
-
-    public Product getProduct(int id){
+    public Product getProduct(Long id){
         return productDao.get(id);
     }
 

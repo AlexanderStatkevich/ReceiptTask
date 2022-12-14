@@ -2,8 +2,6 @@ package com.statkevich.receipttask.dao.factories;
 
 import com.statkevich.receipttask.dao.MemoryDiscountCardDao;
 import com.statkevich.receipttask.dao.api.DiscountCardDao;
-import com.statkevich.receipttask.service.DiscountCardService;
-import com.statkevich.receipttask.service.factories.DiscountCardServiceSingleton;
 
 public class DiscountCardDaoSingleton {
     private volatile static DiscountCardDao instance;

@@ -9,22 +9,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderExtractor {
+    public static final String CARD = "card";
 
-   private static final OrderService orderService = OrderServiceSingleton.getInstance();
-
-    public static void extractOrder(String [] order){
-        String cardNumber = "14445";
-        PositionDto positionDto1 = new PositionDto(1,5);
-        PositionDto positionDto2 = new PositionDto(2,6);
-        PositionDto positionDto3 = new PositionDto(3,7);
-
-
+    public static OrderDto extractOrder(String [] order){
         List<PositionDto> positionDtoList = new ArrayList<>();
-        positionDtoList.add(positionDto1);
-        positionDtoList.add(positionDto2);
-        positionDtoList.add(positionDto3);
+        String cardNumber = null;
 
-        OrderDto orderDto = new OrderDto(positionDtoList,cardNumber);
-        orderService.processingOrder(orderDto);
+        for(String orderRow: order){
+            String[] split = orderRow.split("-");
+            if(orderRow.contains(CARD)){
+                cardNumber = split[1];
+            }else {
+                String id = split[0];
+                String quantity = split[1];
+                PositionDto positionDto = new PositionDto(Long.valueOf(id), Integer.parseInt(quantity));
+                positionDtoList.add(positionDto);
+            }
+        }
+
+       return new OrderDto(positionDtoList,cardNumber);
+
     }
 }
