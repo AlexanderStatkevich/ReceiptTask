@@ -10,10 +10,6 @@ private final DiscountCardDao discountCardDao;
         this.discountCardDao = discountCardDao;
     }
 
-    public boolean exist(String cardName){
-        return discountCardDao.exist(cardName);
-    }
-
     public DiscountCard get(String cardName){
         return discountCardDao.get(cardName);
     }

@@ -1,12 +1,13 @@
 package com.statkevich.receipttask.domain;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class DiscountCard {
-    private String cardNumber;
-    private double discount;
+    private final String cardNumber;
+    private final BigDecimal discount;
 
-    public DiscountCard(String cardNumber, double discount) {
+    public DiscountCard(String cardNumber, BigDecimal discount) {
         this.cardNumber = cardNumber;
         this.discount = discount;
     }
@@ -15,7 +16,7 @@ public class DiscountCard {
         return cardNumber;
     }
 
-    public double getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 
@@ -24,7 +25,7 @@ public class DiscountCard {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DiscountCard that = (DiscountCard) o;
-        return Double.compare(that.discount, discount) == 0 && Objects.equals(cardNumber, that.cardNumber);
+        return Objects.equals(cardNumber, that.cardNumber) && Objects.equals(discount, that.discount);
     }
 
     @Override

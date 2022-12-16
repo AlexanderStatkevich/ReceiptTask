@@ -1,7 +1,7 @@
 package com.statkevich.receipttask.service;
 
 import com.statkevich.receipttask.dao.api.ProductDao;
-import com.statkevich.receipttask.domain.Product;
+import com.statkevich.receipttask.domain.CommonProduct;
 
 public class ProductService {
 
@@ -11,7 +11,7 @@ public class ProductService {
         this.productDao = productDao;
     }
 
-    public Product getProduct(Long id){
+    public CommonProduct getProduct(Long id){
         return productDao.get(id);
     }
 

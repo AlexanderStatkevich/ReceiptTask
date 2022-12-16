@@ -1,9 +1,8 @@
 package com.statkevich.receipttask.dao.api;
 
-import com.statkevich.receipttask.domain.Product;
+import com.statkevich.receipttask.domain.CommonProduct;
 
 public interface ProductDao {
-    boolean exist(Long id);
-    Product get(Long id);
+    CommonProduct get(Long id);
 
 }
