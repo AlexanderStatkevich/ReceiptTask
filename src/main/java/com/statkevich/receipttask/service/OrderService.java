@@ -8,7 +8,6 @@ import com.statkevich.receipttask.dto.OrderDto;
 import com.statkevich.receipttask.dto.PositionDto;
 import com.statkevich.receipttask.dto.ReceiptDto;
 import com.statkevich.receipttask.dto.ReceiptRow;
-import com.statkevich.receipttask.service.factories.DiscountCardServiceSingleton;
 
 import java.math.BigDecimal;
 import java.util.List;

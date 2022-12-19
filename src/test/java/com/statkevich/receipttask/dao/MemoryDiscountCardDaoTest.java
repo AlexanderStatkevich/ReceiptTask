@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MemoryDiscountCardDaoTest {
 
-    DiscountCardDao memoryDiscountCardDao = DiscountCardDaoSingleton.getInstance();
+    DiscountCardDao memoryDiscountCardDao = DiscountCardDaoSingleton.getINSTANCE();
 
     @Test
     void throwsExceptionAfterFrontingInGet() {

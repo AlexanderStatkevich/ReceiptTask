@@ -22,13 +22,13 @@ public class SqlProductDao implements ProductDao {
             SELECT id,name,price,sale_types
             from products
             where id=?;""";
-    DataSource dataSource = DataSourceHolder.getDataSource();
+    private final DataSource dataSource = DataSourceHolder.getDataSource();
 
     @Override
     public CommonProduct get(Long id) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(READ_BY_ID_QUERY);
-             ResultSet resultSet = readByIdInternal(preparedStatement, id)) {
+             ResultSet resultSet = getInternal(preparedStatement, id)) {
              resultSet.next();
             return buildEntity(resultSet);
         } catch (SQLException e) {
@@ -36,7 +36,7 @@ public class SqlProductDao implements ProductDao {
         }
     }
 
-    protected ResultSet readByIdInternal(PreparedStatement preparedStatement, Long id) throws SQLException {
+    protected ResultSet getInternal(PreparedStatement preparedStatement, Long id) throws SQLException {
         preparedStatement.setLong(1, id);
         return preparedStatement.executeQuery();
     }

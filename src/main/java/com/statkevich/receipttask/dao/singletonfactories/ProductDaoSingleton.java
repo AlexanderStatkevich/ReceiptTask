@@ -5,19 +5,19 @@ import com.statkevich.receipttask.dao.api.ProductDao;
 
 public class ProductDaoSingleton {
 
-        private volatile static ProductDao instance;
+        private volatile static ProductDao INSTANCE;
 
         private ProductDaoSingleton() {
         }
 
-        public static ProductDao getInstance() {
-            if (instance == null) {
+        public static ProductDao getINSTANCE() {
+            if (INSTANCE == null) {
                 synchronized (ProductDao.class) {
-                    if (instance == null) {
-                        instance = new SqlProductDao();
+                    if (INSTANCE == null) {
+                        INSTANCE = new SqlProductDao();
                     }
                 }
             }
-            return instance;
+            return INSTANCE;
         }
     }

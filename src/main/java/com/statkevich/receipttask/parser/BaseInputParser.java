@@ -6,14 +6,14 @@ import com.statkevich.receipttask.dto.InputValuesDto;
 import com.statkevich.receipttask.dto.OrderDto;
 import com.statkevich.receipttask.dto.PositionDto;
 import com.statkevich.receipttask.service.ProductService;
-import com.statkevich.receipttask.service.factories.ProductServiceSingleton;
+import com.statkevich.receipttask.service.singletonfactories.ProductServiceSingleton;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class BaseInputParser<T> implements InputParser<T> {
     public static final String CARD = "card";
-    private final ProductService productService = ProductServiceSingleton.getInstance();
+    private final ProductService productService = ProductServiceSingleton.getINSTANCE();
 
     @Override
     public OrderDto parse(T input) {

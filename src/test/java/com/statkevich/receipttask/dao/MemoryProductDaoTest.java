@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MemoryProductDaoTest {
 
-    ProductDao productDao = ProductDaoSingleton.getInstance();
+    ProductDao productDao = ProductDaoSingleton.getINSTANCE();
 
     @Test
     void throwsExceptionAfterFrontingInGet() {

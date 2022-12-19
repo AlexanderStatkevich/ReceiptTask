@@ -1,5 +1,6 @@
-package com.statkevich.receipttask.dao;
+package com.statkevich.receipttask.dao.deprecated;
 
+import com.statkevich.receipttask.dao.SqlProductDao;
 import com.statkevich.receipttask.dao.api.ProductDao;
 import com.statkevich.receipttask.domain.CommonProduct;
 import com.statkevich.receipttask.domain.SaleType;

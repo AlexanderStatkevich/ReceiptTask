@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrderServiceTest {
 
-    private final DiscountCardDao discountCardDao = DiscountCardDaoSingleton.getInstance();
+    private final DiscountCardDao discountCardDao = DiscountCardDaoSingleton.getINSTANCE();
     private final DiscountCardService discountCardService = new DiscountCardService(discountCardDao);
     private final OrderService orderService = new OrderService(discountCardService);
     private final OrderDto orderDto;

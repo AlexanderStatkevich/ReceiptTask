@@ -17,13 +17,13 @@ public class SqlDiscountCardDao implements DiscountCardDao {
             SELECT card_number,discount
             from discount_cards
             where card_number=?;""";
-    DataSource dataSource = DataSourceHolder.getDataSource();
+    private final DataSource dataSource = DataSourceHolder.getDataSource();
 
     @Override
     public DiscountCard get(String cardNumber) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(READ_BY_NUMBER_QUERY);
-             ResultSet resultSet = readByIdInternal(preparedStatement, cardNumber)) {
+             ResultSet resultSet = getInternal(preparedStatement, cardNumber)) {
             resultSet.next();
             return buildEntity(resultSet);
         } catch (SQLException e) {
@@ -31,7 +31,7 @@ public class SqlDiscountCardDao implements DiscountCardDao {
         }
     }
 
-    protected ResultSet readByIdInternal(PreparedStatement preparedStatement, String cardNumber) throws SQLException {
+    protected ResultSet getInternal(PreparedStatement preparedStatement, String cardNumber) throws SQLException {
         preparedStatement.setString(1, cardNumber);
         return preparedStatement.executeQuery();
     }

@@ -1,4 +1,4 @@
-package com.statkevich.receipttask.view;
+package com.statkevich.receipttask.util;
 
 import com.statkevich.receipttask.dto.ReceiptDto;
 import com.statkevich.receipttask.dto.ReceiptRow;

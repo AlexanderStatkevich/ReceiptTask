@@ -1,5 +1,6 @@
-package com.statkevich.receipttask.dao;
+package com.statkevich.receipttask.dao.deprecated;
 
+import com.statkevich.receipttask.dao.SqlDiscountCardDao;
 import com.statkevich.receipttask.dao.api.DiscountCardDao;
 import com.statkevich.receipttask.domain.DiscountCard;
 import com.statkevich.receipttask.exceptions.DiscountCardNotExistException;
