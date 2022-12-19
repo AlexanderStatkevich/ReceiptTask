@@ -11,7 +11,6 @@ import java.util.Set;
 
 public class TenPercentOffForMoreThanFiveProducts extends CalculatorDecorator{
 
-
     private static final int MIN_QUANTITY_FOR_SALE = 5;
     private static final BigDecimal MULTIPLIER = (BigDecimal.valueOf(0.9));
     public TenPercentOffForMoreThanFiveProducts(Calculator calculator) {
@@ -21,13 +20,16 @@ public class TenPercentOffForMoreThanFiveProducts extends CalculatorDecorator{
     @Override
     public ReceiptRow calculate(PositionDto position) {
         CommonProduct product = position.product();
-        String name = product.getName();
         Set<SaleType> saleTypes = product.getSaleTypes();
-        BigDecimal price = product.getPrice();
-        int quantity = position.quantity();
-        BigDecimal totalRowWithoutSale = price.multiply(BigDecimal.valueOf(quantity));
-        BigDecimal totalRowSalePrice = price.multiply(BigDecimal.valueOf(quantity)).multiply(MULTIPLIER);
-        BigDecimal salePercentage = BigDecimal.ONE.subtract(MULTIPLIER);
+
+        ReceiptRow receiptRow = super.calculate(position);
+        String name = receiptRow.productName();
+        BigDecimal price = receiptRow.price();
+        int quantity = receiptRow.quantity();
+
+        BigDecimal totalRowWithoutSale = receiptRow.totalRow();
+        BigDecimal totalRowSalePrice = totalRowWithoutSale.multiply(MULTIPLIER);
+        BigDecimal salePercentage = BigDecimal.ONE.subtract(MULTIPLIER).multiply(BigDecimal.valueOf(100));
         BigDecimal saleAmount = totalRowWithoutSale.subtract(totalRowSalePrice);
 
         if (quantity > MIN_QUANTITY_FOR_SALE && saleTypes.contains(SaleType.TEN_PERCENT_OFF_FOR_MORE_THAN_FIVE_PRODUCTS)) {

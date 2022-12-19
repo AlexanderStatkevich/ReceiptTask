@@ -33,6 +33,6 @@ public class MemoryProductDao implements ProductDao {
         return commonProductList.stream()
                 .filter(product -> product.getId().equals(id))
                 .findAny()
-                .orElseThrow(() -> new ProductNotExistException("Incorrect id input"));
+                .orElseThrow(() -> new ProductNotExistException("Incorrect id input: "+id));
     }
 }
