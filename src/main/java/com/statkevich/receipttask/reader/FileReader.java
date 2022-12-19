@@ -5,6 +5,7 @@ import com.statkevich.receipttask.dto.InputValuesDto;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class FileReader implements Reader {
@@ -18,7 +19,14 @@ public class FileReader implements Reader {
     @Override
     public InputValuesDto read(List<String> orderList) {
         try {
-            java.io.FileReader fileReader = new java.io.FileReader("parameterFile.txt");
+            Optional<String> file = orderList.stream()
+                    .filter(row -> row.startsWith("file"))
+                    .map(row -> row.split("-")[1])
+                    .findAny();
+
+            String parameterFile = file.orElse(null);
+            assert parameterFile != null;
+            java.io.FileReader fileReader = new java.io.FileReader(parameterFile);
             Scanner scan = new Scanner(fileReader);
             List<String> args = new ArrayList<>();
             while (scan.hasNextLine()) {

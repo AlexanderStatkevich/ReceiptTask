@@ -1,7 +1,7 @@
 package com.statkevich.receipttask.dao;
 
 import com.statkevich.receipttask.dao.api.ProductDao;
-import com.statkevich.receipttask.dao.factories.ProductDaoSingleton;
+import com.statkevich.receipttask.dao.singletonfactories.ProductDaoSingleton;
 import com.statkevich.receipttask.exceptions.ProductNotExistException;
 import org.junit.jupiter.api.Test;
 

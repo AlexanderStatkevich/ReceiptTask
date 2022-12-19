@@ -1,6 +1,5 @@
-package com.statkevich.receipttask.dao.factories;
+package com.statkevich.receipttask.dao.singletonfactories;
 
-import com.statkevich.receipttask.dao.MemoryProductDao;
 import com.statkevich.receipttask.dao.SqlProductDao;
 import com.statkevich.receipttask.dao.api.ProductDao;
 
@@ -15,7 +14,7 @@ public class ProductDaoSingleton {
             if (instance == null) {
                 synchronized (ProductDao.class) {
                     if (instance == null) {
-                        instance = new MemoryProductDao();
+                        instance = new SqlProductDao();
                     }
                 }
             }

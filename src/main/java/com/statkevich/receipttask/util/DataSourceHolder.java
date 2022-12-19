@@ -1,9 +1,8 @@
-package com.statkevich.receipttask.dao;
+package com.statkevich.receipttask.util;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -20,6 +19,7 @@ public class DataSourceHolder {
         String maxIdle = properties.getProperty("dataSource.maxIdle");
         String maxTotal = properties.getProperty("dataSource.maxTotal");
         String maxWaitMillis = properties.getProperty("dataSource.maxWaitMillis");
+
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
         basicDataSource.setDriverClassName(drivenClassName);
@@ -27,6 +27,7 @@ public class DataSourceHolder {
         basicDataSource.setMaxIdle(Integer.parseInt(maxIdle));
         basicDataSource.setMaxTotal(Integer.parseInt(maxTotal));
         basicDataSource.setMaxWaitMillis(Long.parseLong(maxWaitMillis));
+
         return basicDataSource;
     }
 
@@ -43,12 +44,3 @@ public class DataSourceHolder {
         }
     }
 }
-//<Resource id="bookingDB" type="javax.sql.DataSource">
-//        jdbcDriver = org.postgresql.Driver
-//        jdbcUrl = jdbc:postgresql://127.0.0.1:5777/bookingDB
-//        maxActive = 20
-//        maxIdle = 10
-//        maxWaitTime = -1 millisecond
-//        password = Aries1994
-//        userName = postgres
-//</Resource>

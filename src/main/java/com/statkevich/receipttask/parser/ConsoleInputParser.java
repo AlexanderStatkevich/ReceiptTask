@@ -19,7 +19,7 @@ public class ConsoleInputParser extends BaseInputParser<String[]> {
         List<String> orderList = new ArrayList<>(Arrays.asList(order));
 
         boolean parameterFile = orderList.stream()
-                .anyMatch(row -> row.equals("parameterFile"));
+                .anyMatch(row -> row.contains("file"));
 
         if (parameterFile) {
             return fileReader.read(orderList);

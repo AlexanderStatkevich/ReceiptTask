@@ -1,7 +1,7 @@
 package com.statkevich.receipttask.service;
 
 import com.statkevich.receipttask.dao.api.DiscountCardDao;
-import com.statkevich.receipttask.dao.factories.DiscountCardDaoSingleton;
+import com.statkevich.receipttask.dao.singletonfactories.DiscountCardDaoSingleton;
 import com.statkevich.receipttask.domain.CommonProduct;
 import com.statkevich.receipttask.domain.SaleType;
 import com.statkevich.receipttask.dto.OrderDto;

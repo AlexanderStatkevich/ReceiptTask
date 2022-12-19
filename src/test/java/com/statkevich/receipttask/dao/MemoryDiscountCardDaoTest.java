@@ -1,8 +1,7 @@
 package com.statkevich.receipttask.dao;
 
 import com.statkevich.receipttask.dao.api.DiscountCardDao;
-import com.statkevich.receipttask.dao.factories.DiscountCardDaoSingleton;
-import com.statkevich.receipttask.exceptions.DataAccessException;
+import com.statkevich.receipttask.dao.singletonfactories.DiscountCardDaoSingleton;
 import com.statkevich.receipttask.exceptions.DiscountCardNotExistException;
 import org.junit.jupiter.api.Test;
 

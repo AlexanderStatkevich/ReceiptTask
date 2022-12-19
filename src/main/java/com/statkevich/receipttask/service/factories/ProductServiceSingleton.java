@@ -1,6 +1,6 @@
 package com.statkevich.receipttask.service.factories;
 
-import com.statkevich.receipttask.dao.factories.ProductDaoSingleton;
+import com.statkevich.receipttask.dao.singletonfactories.ProductDaoSingleton;
 import com.statkevich.receipttask.service.ProductService;
 
 public class ProductServiceSingleton {

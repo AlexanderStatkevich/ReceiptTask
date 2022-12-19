@@ -1,6 +1,6 @@
-package com.statkevich.receipttask.dao.factories;
+package com.statkevich.receipttask.dao.singletonfactories;
 
-import com.statkevich.receipttask.dao.MemoryDiscountCardDao;
+import com.statkevich.receipttask.dao.SqlDiscountCardDao;
 import com.statkevich.receipttask.dao.api.DiscountCardDao;
 
 public class DiscountCardDaoSingleton {
@@ -13,7 +13,7 @@ public class DiscountCardDaoSingleton {
         if (instance == null) {
             synchronized (DiscountCardDaoSingleton.class) {
                 if (instance == null) {
-                    instance = new MemoryDiscountCardDao();
+                    instance = new SqlDiscountCardDao();
                 }
             }
         }

@@ -4,10 +4,10 @@ import com.statkevich.receipttask.dao.api.ProductDao;
 import com.statkevich.receipttask.domain.CommonProduct;
 import com.statkevich.receipttask.domain.SaleType;
 import com.statkevich.receipttask.exceptions.DataAccessException;
+import com.statkevich.receipttask.util.DataSourceHolder;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

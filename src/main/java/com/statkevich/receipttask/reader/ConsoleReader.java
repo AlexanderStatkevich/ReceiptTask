@@ -9,14 +9,10 @@ import java.util.List;
 import static com.statkevich.receipttask.parser.BaseInputParser.CARD;
 
 public class ConsoleReader implements Reader{
-
-
-
     @Override
     public InputValuesDto read(List<String> orderList) {
         List<InputPositionDto> inputPositionDtoList = new ArrayList<>();
         String cardNumber = "0000";
-
         for (String orderRow : orderList) {
             String[] orderRowArray = orderRow.split("-");
             if (orderRow.contains(CARD)) {
