@@ -5,6 +5,7 @@ import com.statkevich.receipttask.dto.InputPositionDto;
 import com.statkevich.receipttask.dto.InputValueDto;
 import com.statkevich.receipttask.dto.OrderDto;
 import com.statkevich.receipttask.dto.PositionDto;
+import com.statkevich.receipttask.exceptions.OrderIsEmptyException;
 import com.statkevich.receipttask.reader.ConsoleReader;
 import com.statkevich.receipttask.reader.FileReader;
 import com.statkevich.receipttask.service.ProductService;
@@ -41,7 +42,9 @@ public class ConsoleInputParser {
     }
     protected InputValueDto parseInternal(String[] order) {
         List<String> orderList = new ArrayList<>(Arrays.asList(order));
-
+        if(orderList.isEmpty()){
+            throw new OrderIsEmptyException("Nothing passed in order");
+        }
         boolean parameterFile = orderList.stream()
                 .anyMatch(row -> row.contains("file"));
 
