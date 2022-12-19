@@ -1,12 +1,6 @@
 package com.statkevich.receipttask.view;
 
-import com.statkevich.receipttask.dto.ReceiptDto;
-import com.statkevich.receipttask.dto.ReceiptRow;
-
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.List;
 
 public class ConsolePrinter implements Printer {
     @Override
@@ -15,6 +9,4 @@ public class ConsolePrinter implements Printer {
         writer.print(receipt);
         writer.flush();
     }
-
-
 }

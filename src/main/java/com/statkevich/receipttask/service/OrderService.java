@@ -1,5 +1,6 @@
 package com.statkevich.receipttask.service;
 
+import com.statkevich.receipttask.calculation.DiscountCardDecorator;
 import com.statkevich.receipttask.calculation.FullCostCalculator;
 import com.statkevich.receipttask.calculation.TenPercentOffForMoreThanFiveProducts;
 import com.statkevich.receipttask.domain.DiscountCard;
@@ -8,49 +9,42 @@ import com.statkevich.receipttask.dto.PositionDto;
 import com.statkevich.receipttask.dto.ReceiptDto;
 import com.statkevich.receipttask.dto.ReceiptRow;
 import com.statkevich.receipttask.service.factories.DiscountCardServiceSingleton;
-import com.statkevich.receipttask.service.factories.ProductServiceSingleton;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class OrderService {
-    DiscountCardService discountCardService = DiscountCardServiceSingleton.getInstance();
+    private final DiscountCardService discountCardService;
+
+    public OrderService(DiscountCardService discountCardService) {
+        this.discountCardService = discountCardService;
+    }
 
     public ReceiptDto processingOrder(OrderDto orderDTO) {
         List<PositionDto> positionDtoList = orderDTO.positionDtoList();
         String cardNumber = orderDTO.cardNumber();
-        List<ReceiptRow> receiptRowList = receiptMakeOf(positionDtoList);
-        BigDecimal total = countTotal(receiptRowList, cardNumber);
+        List<ReceiptRow> receiptRowList = receiptMakeOf(positionDtoList, cardNumber);
+        BigDecimal total = countTotal(receiptRowList);
         return new ReceiptDto(receiptRowList, total);
     }
 
-    private List<ReceiptRow> receiptMakeOf(List<PositionDto> positionDtoList) {
+    private List<ReceiptRow> receiptMakeOf(List<PositionDto> positionDtoList, String cardNumber) {
+        DiscountCard discountCard = discountCardService.get(cardNumber);
         return positionDtoList.stream()
-                .map(this::getReceiptRow)
+                .map(position -> getReceiptRow(position, discountCard))
                 .collect(Collectors.toList());
     }
 
-    private ReceiptRow getReceiptRow(PositionDto positionDto) {
-        TenPercentOffForMoreThanFiveProducts tenPercentOffForMoreThanFiveProducts = new TenPercentOffForMoreThanFiveProducts(new FullCostCalculator());
-        return tenPercentOffForMoreThanFiveProducts.calculate(positionDto);
+    private ReceiptRow getReceiptRow(PositionDto positionDto, DiscountCard discountCard) {
+        DiscountCardDecorator receiptRowSaleAndDiscountEvaluation =
+                new DiscountCardDecorator(new TenPercentOffForMoreThanFiveProducts(new FullCostCalculator()), discountCard);
+        return receiptRowSaleAndDiscountEvaluation.calculate(positionDto);
     }
 
-    private BigDecimal countTotal(List<ReceiptRow> receiptRowList, String cardNumber) {
-        List<BigDecimal> totalSumList = new ArrayList<>();
-        DiscountCard discountCard = discountCardService.get(cardNumber);
-        BigDecimal discountMultiplier = BigDecimal.ONE.subtract(discountCard.getDiscount());
-
-        for (ReceiptRow receiptRow : receiptRowList) {
-            if (receiptRow.salePercentage() == null) {
-                totalSumList.add(receiptRow.totalRow().multiply(discountMultiplier));
-            } else {
-                totalSumList.add(receiptRow.totalRow());
-            }
-        }
-        return totalSumList.stream()
+    private BigDecimal countTotal(List<ReceiptRow> receiptRowList) {
+        return receiptRowList.stream()
+                .map(ReceiptRow::totalRow)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

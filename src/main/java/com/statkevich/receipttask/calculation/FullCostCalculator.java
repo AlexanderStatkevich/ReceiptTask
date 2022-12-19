@@ -15,7 +15,6 @@ public class FullCostCalculator implements Calculator{
         String name = product.getName();
         int quantity = position.quantity();
         BigDecimal totalRow = price.multiply(BigDecimal.valueOf(quantity));
-        return new ReceiptRow(quantity, name,price,null,totalRow, null);
+        return new ReceiptRow(quantity, name,price,BigDecimal.ZERO,totalRow, BigDecimal.ZERO);
     }
-
 }

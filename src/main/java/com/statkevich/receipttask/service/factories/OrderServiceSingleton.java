@@ -12,7 +12,7 @@ public class OrderServiceSingleton {
         if (instance == null) {
             synchronized (OrderServiceSingleton.class) {
                 if (instance == null) {
-                    instance = new OrderService();
+                    instance = new OrderService(DiscountCardServiceSingleton.getInstance());
                 }
             }
         }
