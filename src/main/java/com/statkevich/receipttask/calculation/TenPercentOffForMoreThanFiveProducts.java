@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 public class TenPercentOffForMoreThanFiveProducts extends CalculatorDecorator{
-
     private static final int MIN_QUANTITY_FOR_SALE = 5;
     private static final BigDecimal MULTIPLIER = (BigDecimal.valueOf(0.9));
     public TenPercentOffForMoreThanFiveProducts(Calculator calculator) {

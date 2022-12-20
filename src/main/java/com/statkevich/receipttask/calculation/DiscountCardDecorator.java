@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class DiscountCardDecorator extends CalculatorDecorator {
+
     public static final BigDecimal HUNDRED = BigDecimal.valueOf(100);
     private final DiscountCard discountCard;
 

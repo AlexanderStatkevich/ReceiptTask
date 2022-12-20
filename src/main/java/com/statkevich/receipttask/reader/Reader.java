@@ -1,11 +1,11 @@
 package com.statkevich.receipttask.reader;
 
-import com.statkevich.receipttask.dto.InputValueDto;
+import com.statkevich.receipttask.dto.InputValuesDto;
 
 import java.util.List;
 
 public interface Reader {
 
-    InputValueDto read(List<String> orderList);
+    InputValuesDto read(List<String> orderList);
 
 }

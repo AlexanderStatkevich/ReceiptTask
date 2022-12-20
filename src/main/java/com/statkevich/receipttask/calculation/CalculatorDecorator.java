@@ -3,9 +3,7 @@ package com.statkevich.receipttask.calculation;
 import com.statkevich.receipttask.dto.PositionDto;
 import com.statkevich.receipttask.dto.ReceiptRow;
 
-import java.math.BigDecimal;
-
-public class CalculatorDecorator implements Calculator{
+public abstract class CalculatorDecorator implements Calculator{
 
     private final Calculator calculator;
 

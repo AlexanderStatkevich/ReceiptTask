@@ -1,6 +1,7 @@
-package com.statkevich.receipttask.dao;
+package com.statkevich.receipttask.dao.memory;
 
 import com.statkevich.receipttask.dao.api.ProductDao;
+import com.statkevich.receipttask.dao.sql.SqlProductDao;
 import com.statkevich.receipttask.domain.CommonProduct;
 import com.statkevich.receipttask.domain.SaleType;
 import com.statkevich.receipttask.exceptions.ProductNotExistException;
@@ -9,7 +10,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+/**
+ * @deprecated replaced with {@link SqlProductDao}
+ */
+//@Deprecated
 public class MemoryProductDao implements ProductDao {
 
     private final List<CommonProduct> commonProductList = new ArrayList<>();
@@ -28,11 +34,23 @@ public class MemoryProductDao implements ProductDao {
         commonProductList.add(cheese);
         commonProductList.add(potato);
     }
+
     @Override
     public CommonProduct get(Long id) {
         return commonProductList.stream()
                 .filter(product -> product.getId().equals(id))
                 .findAny()
-                .orElseThrow(() -> new ProductNotExistException("Incorrect id input: "+id));
+                .orElseThrow(() -> new ProductNotExistException("Incorrect id input: " + id));
+    }
+
+    @Override
+    public List<CommonProduct> getByKeys(List<Long> ids) {
+        List<CommonProduct> productList = commonProductList.stream()
+                .filter(product -> ids.contains(product.getId()))
+                .collect(Collectors.toList());
+        if (ids.size() != productList.size()) {
+            throw new ProductNotExistException("Incorrect id input: " + ids);
+        }
+        return productList;
     }
 }

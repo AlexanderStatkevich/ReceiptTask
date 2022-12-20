@@ -3,6 +3,8 @@ package com.statkevich.receipttask.service;
 import com.statkevich.receipttask.dao.api.ProductDao;
 import com.statkevich.receipttask.domain.CommonProduct;
 
+import java.util.List;
+
 public class ProductService {
 
     private final ProductDao productDao;
@@ -11,8 +13,8 @@ public class ProductService {
         this.productDao = productDao;
     }
 
-    public CommonProduct getProduct(Long id){
-        return productDao.get(id);
+    public List<CommonProduct> getProducts(List<Long> ids){
+        return productDao.getByKeys(ids);
     }
 
 }

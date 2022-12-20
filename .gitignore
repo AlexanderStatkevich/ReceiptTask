@@ -16,6 +16,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
+/.idea/workspace.xml
 /.idea/dataSources/c29ae432-f18f-4af8-8ffb-5582887791ad.xml
 /.idea/checkstyle-idea.xml
 /.idea/dataSources.local.xml
@@ -28,8 +29,7 @@ out/
 /.idea/dataSources/c29ae432-f18f-4af8-8ffb-5582887791ad/storage_v2/_src_/database/receiptDB.tsyuKQ/schema/pg_catalog.0S1ZNQ.meta
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/dataSources/c29ae432-f18f-4af8-8ffb-5582887791ad/storage_v2/_src_/database/receiptDB.tsyuKQ/schema/public.abK9xQ.meta
-/receipt.txt
 /.idea/dataSources/c29ae432-f18f-4af8-8ffb-5582887791ad/storage_v2/_src_/database/receiptDB.tsyuKQ.meta
+/.idea/sqldialects.xml
 /.idea/uiDesigner.xml
 /.idea/vcs.xml
-/.idea/workspace.xml

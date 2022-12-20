@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public record ReceiptDto(List<ReceiptRow> receiptRow, BigDecimal total) {
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

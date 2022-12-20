@@ -8,13 +8,9 @@ import com.statkevich.receipttask.dto.OrderDto;
 import com.statkevich.receipttask.dto.PositionDto;
 import com.statkevich.receipttask.dto.ReceiptDto;
 import com.statkevich.receipttask.dto.ReceiptRow;
-import com.statkevich.receipttask.service.factories.DiscountCardServiceSingleton;
-import com.statkevich.receipttask.service.factories.ProductServiceSingleton;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class OrderService {
@@ -34,6 +30,7 @@ public class OrderService {
 
     private List<ReceiptRow> receiptMakeOf(List<PositionDto> positionDtoList, String cardNumber) {
         DiscountCard discountCard = discountCardService.get(cardNumber);
+
         return positionDtoList.stream()
                 .map(position -> getReceiptRow(position, discountCard))
                 .collect(Collectors.toList());
@@ -50,5 +47,6 @@ public class OrderService {
                 .map(ReceiptRow::totalRow)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
 
 }

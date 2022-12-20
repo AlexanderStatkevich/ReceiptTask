@@ -3,7 +3,8 @@ package com.statkevich.receipttask.dto;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public record ReceiptRow(int quantity, String productName, BigDecimal price, BigDecimal salePercentage,BigDecimal totalRow, BigDecimal saleAmount) {
+public record ReceiptRow(int quantity, String productName, BigDecimal price, BigDecimal salePercentage,
+                         BigDecimal totalRow, BigDecimal saleAmount) {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
