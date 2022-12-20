@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
+@Deprecated
 class MemoryProductDaoTest {
 
-    ProductDao productDao = ProductDaoSingleton.getINSTANCE();
-
-    @Test
-    void throwsExceptionAfterFrontingInGet() {
-        Exception exception = assertThrows(ProductNotExistException.class, () -> productDao.get(0L));
-        assertEquals("Incorrect id input: "+ 0L, exception.getMessage());
-    }
+//    ProductDao productDao = ProductDaoSingleton.getINSTANCE();
+//
+//    @Test
+//    void throwsExceptionAfterFrontingInGet() {
+//        Exception exception = assertThrows(ProductNotExistException.class, () -> productDao.get(0L));
+//        assertEquals("Incorrect id input: "+ 0L, exception.getMessage());
+//    }
 }
 

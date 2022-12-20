@@ -9,6 +9,8 @@ import com.statkevich.receipttask.service.ProductService;
 import com.statkevich.receipttask.service.singletonfactories.ProductServiceSingleton;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public abstract class BaseInputParser<T> implements InputParser<T> {
@@ -19,9 +21,17 @@ public abstract class BaseInputParser<T> implements InputParser<T> {
     public OrderDto parse(T input) {
         InputValuesDto inputValuesDto = parseInternal(input);
         String cardNumber = inputValuesDto.cardNumber();
+        List<Long> inputIds = inputValuesDto.inputPositionDtoList()
+                .stream()
+                .map(InputPositionDto::id)
+                .collect(Collectors.toList());
+
+        Map<Long, CommonProduct> productMap = productService.getProducts(inputIds).stream()
+                .collect(Collectors.toMap(CommonProduct::getId, Function.identity()));
+
         List<PositionDto> positionDtoList = inputValuesDto.inputPositionDtoList()
                 .stream()
-                .map(this::getPositionDto)
+                .map(position -> new PositionDto(productMap.get(position.id()), position.quantity()))
                 .collect(Collectors.toList());
 
         return new OrderDto(positionDtoList, cardNumber);
@@ -29,8 +39,4 @@ public abstract class BaseInputParser<T> implements InputParser<T> {
 
     protected abstract InputValuesDto parseInternal(T input);
 
-    private PositionDto getPositionDto(InputPositionDto position) {
-        CommonProduct product = productService.getProduct(position.id());
-        return new PositionDto(product, position.quantity());
-    }
 }

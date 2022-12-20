@@ -30,6 +30,7 @@ public class OrderService {
 
     private List<ReceiptRow> receiptMakeOf(List<PositionDto> positionDtoList, String cardNumber) {
         DiscountCard discountCard = discountCardService.get(cardNumber);
+
         return positionDtoList.stream()
                 .map(position -> getReceiptRow(position, discountCard))
                 .collect(Collectors.toList());

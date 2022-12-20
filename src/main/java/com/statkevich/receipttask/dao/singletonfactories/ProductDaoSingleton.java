@@ -1,6 +1,6 @@
 package com.statkevich.receipttask.dao.singletonfactories;
 
-import com.statkevich.receipttask.dao.SqlProductDao;
+import com.statkevich.receipttask.dao.sql.SqlProductDao;
 import com.statkevich.receipttask.dao.api.ProductDao;
 
 public class ProductDaoSingleton {

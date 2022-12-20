@@ -1,6 +1,6 @@
 package com.statkevich.receipttask.dao.singletonfactories;
 
-import com.statkevich.receipttask.dao.SqlDiscountCardDao;
+import com.statkevich.receipttask.dao.sql.SqlDiscountCardDao;
 import com.statkevich.receipttask.dao.api.DiscountCardDao;
 
 public class DiscountCardDaoSingleton {

@@ -1,6 +1,6 @@
 package com.statkevich.receipttask.parser;
 
-import com.statkevich.receipttask.dao.SqlProductDao;
+import com.statkevich.receipttask.dao.sql.SqlProductDao;
 import com.statkevich.receipttask.dao.api.ProductDao;
 import com.statkevich.receipttask.domain.CommonProduct;
 import com.statkevich.receipttask.dto.OrderDto;
