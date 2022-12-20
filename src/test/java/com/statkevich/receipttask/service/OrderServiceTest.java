@@ -8,7 +8,6 @@ import com.statkevich.receipttask.dto.OrderDto;
 import com.statkevich.receipttask.dto.PositionDto;
 import com.statkevich.receipttask.dto.ReceiptDto;
 import com.statkevich.receipttask.dto.ReceiptRow;
-import com.statkevich.receipttask.view.PrepareStringToPrintUtil;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

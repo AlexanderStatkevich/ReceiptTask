@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class SqlBaseDao<E,K> implements BaseDao<E,K> {
 
@@ -31,7 +33,8 @@ public abstract class SqlBaseDao<E,K> implements BaseDao<E,K> {
                 throw  new DataAccessException("Entity with key " + key + " not found");
             }
         } catch (SQLException e) {
-            throw new DataAccessException("SQLException Get method :" + e);
+            throw new DataAccessException("SQLException Get method :" + String.join("\n",
+                    Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString).collect(Collectors.joining("\n"))));
         }
     }
     @Override
