@@ -11,8 +11,10 @@ public class WebInputParser extends BaseInputParser<Map<String, String[]>> {
     private static final Pattern ONLY_DIGITS_PATTERN = Pattern.compile("\\d+");
     @Override
     protected InputValuesDto parseInternal(Map<String, String[]> input) {
-        String cardNumber = input.get(CARD)[0];
-
+        String cardNumber =null;
+        if(input.containsKey(CARD)){
+            cardNumber = input.get(CARD)[0];
+        }
         List<InputPositionDto> inputPositionDto = input.entrySet().stream()
                 .filter(WebInputParser::isOnlyDigits)
                 .map(this::getInputPositionDto)

@@ -11,7 +11,7 @@ services:
     depends_on:
       - postgresdb
   postgresdb:
-    image: postgres:15.0-alpine
+    image: postgres:15.1-alpine
     container_name: postgresdb
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
