@@ -31,7 +31,6 @@ class OrderServiceTest {
                 new PositionDto(new CommonProduct(2L, "Name2", BigDecimal.valueOf(10), Set.of(SaleType.TEN_PERCENT_OFF_FOR_MORE_THAN_FIVE_PRODUCTS)), 7)), "0000");
     }
 
-
     @Test
     void testOrder() {
         ReceiptDto receiptDto = orderService.processingOrder(orderDto);

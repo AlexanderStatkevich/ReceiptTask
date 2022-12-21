@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class FileReader implements Reader {
 
+    public static final String FILE = "file";
     private final ConsoleReader consoleReader;
-
     public FileReader(ConsoleReader consoleReader) {
         this.consoleReader = consoleReader;
     }
@@ -19,13 +19,12 @@ public class FileReader implements Reader {
     @Override
     public InputValueDto read(List<String> orderList) {
         try {
-            Optional<String> file = orderList.stream()
-                    .filter(row -> row.startsWith("file"))
+            String parameterFile = orderList.stream()
+                    .filter(row -> row.startsWith(FILE))
                     .map(row -> row.split("-")[1])
-                    .findAny();
+                    .findAny()
+                    .orElseThrow(IllegalArgumentException::new);
 
-            String parameterFile = file.orElse(null);
-            assert parameterFile != null;
             java.io.FileReader fileReader = new java.io.FileReader(parameterFile);
             Scanner scan = new Scanner(fileReader);
             List<String> args = new ArrayList<>();

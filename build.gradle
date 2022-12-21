@@ -9,6 +9,15 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    manifest {
+        attributes "Main-Class": "com.statkevich.receipttask.Runner"
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
 ext {
     junitVersion = '5.8.2'
     log4jVersion = '2.19.0'

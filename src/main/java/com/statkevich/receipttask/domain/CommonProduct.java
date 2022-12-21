@@ -1,7 +1,9 @@
 package com.statkevich.receipttask.domain;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CommonProduct {
     private final Long id;
@@ -64,6 +66,9 @@ public class CommonProduct {
         }
 
         public CommonProduct build() {
+            if(saleTypes == null){
+                saleTypes = Collections.emptySet();
+            }
             return new CommonProduct(id, name, price,saleTypes);
         }
 

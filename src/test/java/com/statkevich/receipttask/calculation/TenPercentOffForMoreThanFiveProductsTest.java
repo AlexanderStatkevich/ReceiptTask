@@ -22,9 +22,7 @@ class TenPercentOffForMoreThanFiveProductsTest {
     private final BigDecimal PRICE = BigDecimal.TEN;
     private final BigDecimal FULL_TOTAL_ROW = PRICE.multiply(BigDecimal.valueOf(QUANTITY));
     private final BigDecimal SALE_TOTAL_ROW = FULL_TOTAL_ROW.multiply(SALE_MULTIPLIER);
-
     private final BigDecimal SALE_AMOUNT_EXPECTED =FULL_TOTAL_ROW.subtract(SALE_TOTAL_ROW);
-
     private final TenPercentOffForMoreThanFiveProducts tenPercentOffForMoreThanFiveProducts;
 
     private final CommonProduct product;

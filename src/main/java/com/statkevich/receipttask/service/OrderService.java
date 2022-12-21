@@ -1,5 +1,6 @@
 package com.statkevich.receipttask.service;
 
+import com.statkevich.receipttask.calculation.Calculator;
 import com.statkevich.receipttask.calculation.DiscountCardDecorator;
 import com.statkevich.receipttask.calculation.FullCostCalculator;
 import com.statkevich.receipttask.calculation.TenPercentOffForMoreThanFiveProducts;
@@ -18,6 +19,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class OrderService {
+
+    public static final TenPercentOffForMoreThanFiveProducts BASE_CALCULATOR = new TenPercentOffForMoreThanFiveProducts(new FullCostCalculator());
     private final DiscountCardService discountCardService;
 
     public OrderService(DiscountCardService discountCardService) {
@@ -33,17 +36,23 @@ public class OrderService {
     }
 
     private List<ReceiptRow> receiptMakeOf(List<PositionDto> positionDtoList, String cardNumber) {
-        DiscountCard discountCard = discountCardService.get(cardNumber);
+
+        Calculator calculator = getCalculator(cardNumber);
+
         return positionDtoList.stream()
-                .map(position -> getReceiptRow(position, discountCard))
+                .map(calculator::calculate)
                 .collect(Collectors.toList());
     }
 
-    private ReceiptRow getReceiptRow(PositionDto positionDto, DiscountCard discountCard) {
-        DiscountCardDecorator receiptRowSaleAndDiscountEvaluation =
-                new DiscountCardDecorator(new TenPercentOffForMoreThanFiveProducts(new FullCostCalculator()), discountCard);
-        return receiptRowSaleAndDiscountEvaluation.calculate(positionDto);
+    private Calculator getCalculator(String cardNumber) {
+        if(cardNumber == null){
+            return BASE_CALCULATOR;
+        }else {
+            DiscountCard discountCard = discountCardService.get(cardNumber);
+            return new DiscountCardDecorator(BASE_CALCULATOR, discountCard);
+        }
     }
+
 
     private BigDecimal countTotal(List<ReceiptRow> receiptRowList) {
         return receiptRowList.stream()

@@ -13,7 +13,7 @@ public class ConsoleReader implements Reader{
     @Override
     public InputValueDto read(List<String> orderList) {
         List<InputPositionDto> inputPositionDtoList = new ArrayList<>();
-        String cardNumber = "0000";
+        String cardNumber = null;
         for (String orderRow : orderList) {
             String[] orderRowArray = orderRow.split("-");
             if (orderRow.contains(CARD)) {
