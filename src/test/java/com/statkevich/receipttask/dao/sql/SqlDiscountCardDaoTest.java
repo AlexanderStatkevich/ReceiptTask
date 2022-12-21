@@ -1,12 +1,6 @@
-package com.statkevich.receipttask.service;
+package com.statkevich.receipttask.dao.sql;
 
-import com.statkevich.receipttask.dao.sql.SqlDiscountCardDao;
-import com.statkevich.receipttask.domain.CommonProduct;
-import com.statkevich.receipttask.domain.SaleType;
-import com.statkevich.receipttask.dto.OrderDto;
-import com.statkevich.receipttask.dto.PositionDto;
-import com.statkevich.receipttask.dto.ReceiptDto;
-import com.statkevich.receipttask.dto.ReceiptRow;
+import com.statkevich.receipttask.domain.DiscountCard;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,26 +12,21 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-class OrderServiceTest {
-
+class SqlDiscountCardDaoTest {
 
     private static final String SRC = "jdbc:h2:mem:test;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1";
     private static final DataSource dataSource = initDataSource();
     private final SqlDiscountCardDao cardDao = new SqlDiscountCardDao(dataSource);
-    private final DiscountCardService discountCardService = new DiscountCardService(cardDao);
-    private final OrderService orderService = new OrderService(discountCardService);
-    private final OrderDto orderDto;
 
     private static DataSource initDataSource() {
         JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setURL(SRC);
         return dataSource;
     }
+
     @BeforeEach
     void init() {
         try (Connection connection = dataSource.getConnection();
@@ -58,22 +47,21 @@ class OrderServiceTest {
         }
     }
 
-    public OrderServiceTest() {
-        orderDto = new OrderDto(List.of(
-                new PositionDto(new CommonProduct(1L, "Name1", BigDecimal.valueOf(5), Set.of(SaleType.TEN_PERCENT_OFF_FOR_MORE_THAN_FIVE_PRODUCTS)), 6),
-                new PositionDto(new CommonProduct(2L, "Name2", BigDecimal.valueOf(10), Set.of()), 3)), "1111");
+    @Test
+    void getByExistedKeyThenReturnExistedCard() {
+        assertEquals(new DiscountCard("3333", BigDecimal.valueOf(0.05)),cardDao.get("3333"));
     }
-
 
     @Test
-    void testOrder() {
-        ReceiptDto receiptDto = orderService.processingOrder(orderDto);
-        ReceiptDto receiptDtoExpected = new ReceiptDto(List.of(
-                new ReceiptRow(6, "Name1", BigDecimal.valueOf(5), BigDecimal.TEN, BigDecimal.valueOf(27), BigDecimal.valueOf(3)),
-                new ReceiptRow(3, "Name2", BigDecimal.valueOf(10), BigDecimal.valueOf(3), BigDecimal.valueOf(29.1), BigDecimal.valueOf(0.9))), BigDecimal.valueOf(56.1));
-
-        assertEquals(receiptDtoExpected, receiptDto);
+    void getByAllExistedKeysThenReturnAllExistedCards() {
+        DiscountCard discountCard1 = new DiscountCard("1111", BigDecimal.valueOf(0.03));
+        DiscountCard discountCard2 = new DiscountCard("2222", BigDecimal.valueOf(0));
+        DiscountCard discountCard3 = new DiscountCard("3333", BigDecimal.valueOf(0.05));
+        List<DiscountCard> cardList = List.of(discountCard1,discountCard2,discountCard3);
+        assertEquals(cardList, cardDao.getByKeys(List.of("1111","2222","3333")));
     }
+
+
     @AfterEach
     void comletion() {
         try (Connection connection = dataSource.getConnection();
@@ -85,4 +73,6 @@ class OrderServiceTest {
             throw new RuntimeException(e);
         }
     }
+
+
 }

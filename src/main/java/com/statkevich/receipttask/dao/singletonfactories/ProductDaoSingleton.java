@@ -2,6 +2,7 @@ package com.statkevich.receipttask.dao.singletonfactories;
 
 import com.statkevich.receipttask.dao.sql.SqlProductDao;
 import com.statkevich.receipttask.dao.api.ProductDao;
+import com.statkevich.receipttask.util.DataSourceHolder;
 
 public class ProductDaoSingleton {
 
@@ -14,7 +15,7 @@ public class ProductDaoSingleton {
             if (INSTANCE == null) {
                 synchronized (ProductDao.class) {
                     if (INSTANCE == null) {
-                        INSTANCE = new SqlProductDao();
+                        INSTANCE = new SqlProductDao(DataSourceHolder.getDataSource());
                     }
                 }
             }

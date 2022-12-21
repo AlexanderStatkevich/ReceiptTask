@@ -25,7 +25,9 @@ public class DiscountCard {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DiscountCard that = (DiscountCard) o;
-        return Objects.equals(cardNumber, that.cardNumber) && Objects.equals(discount, that.discount);
+        return Objects.equals(cardNumber, that.cardNumber)
+                && (discount.compareTo(that.discount) == 0);
+
     }
 
     @Override

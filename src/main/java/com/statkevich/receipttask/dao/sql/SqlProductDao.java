@@ -4,6 +4,7 @@ import com.statkevich.receipttask.dao.api.ProductDao;
 import com.statkevich.receipttask.domain.CommonProduct;
 import com.statkevich.receipttask.domain.SaleType;
 
+import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.Connection;
@@ -27,6 +28,9 @@ public class SqlProductDao extends SqlBaseDao<CommonProduct, Long> implements Pr
             from products
             WHERE id = any (?);""";
 
+    public SqlProductDao(DataSource dataSource) {
+        super(dataSource);
+    }
 
     @Override
     protected ResultSet getByKeysInternal(PreparedStatement preparedStatement, List<Long> keyList) throws SQLException {
@@ -48,7 +52,8 @@ public class SqlProductDao extends SqlBaseDao<CommonProduct, Long> implements Pr
         Long id = resultSet.getLong("id");
         String name = resultSet.getString("name");
         BigDecimal price = resultSet.getBigDecimal("price");
-        String[] saleTypesArray = (String[]) resultSet.getArray("sale_types").getArray();
+        Object sale_types = resultSet.getArray("sale_types").getArray();
+        String[] saleTypesArray = (String[]) sale_types;
         Set<SaleType> saleTypes = Arrays.stream(saleTypesArray)
                 .map(SaleType::valueOf)
                 .collect(Collectors.toSet());
@@ -65,6 +70,7 @@ public class SqlProductDao extends SqlBaseDao<CommonProduct, Long> implements Pr
     protected String getQuery() {
         return READ_BY_ID_QUERY;
     }
+
     @Override
     protected String getByKeysQuery() {
         return READ_BY_IDS_QUERY;

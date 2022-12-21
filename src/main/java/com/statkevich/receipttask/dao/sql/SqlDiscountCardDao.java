@@ -3,6 +3,7 @@ package com.statkevich.receipttask.dao.sql;
 import com.statkevich.receipttask.dao.api.DiscountCardDao;
 import com.statkevich.receipttask.domain.DiscountCard;
 
+import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.Connection;
@@ -20,7 +21,11 @@ public class SqlDiscountCardDao extends SqlBaseDao<DiscountCard,String> implemen
     private static final String READ_BY_NUMBERS_QUERY = """
             SELECT card_number,discount
             from discount_cards
-            WHERE card_number any = (?);""";
+            WHERE card_number = any (?);""";
+
+    public SqlDiscountCardDao(DataSource dataSource) {
+        super(dataSource);
+    }
 
     @Override
     protected ResultSet getByKeysInternal(PreparedStatement preparedStatement, List<String> cardNumbers) throws SQLException {

@@ -17,8 +17,11 @@ import java.util.stream.Collectors;
 
 public abstract class SqlBaseDao<E,K> implements BaseDao<E,K> {
 
-    private final DataSource dataSource = DataSourceHolder.getDataSource();
+    private final DataSource dataSource;
 
+    public SqlBaseDao(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
     public E get(K key) {
